@@ -1,0 +1,167 @@
+@font-face {
+  font-family: 'Roboto Flex';
+  src: url('./assets/Roboto-Variable.woff2') format('woff2');
+  font-weight: 100 1000;
+  font-stretch: 25% 151%;
+  font-display: swap;
+}
+
+:root {
+  /* Overwritten by main.js from CONFIG — see the prop declarations there. */
+  --accent: #c2410c;
+  --glass-bg: rgba(255, 255, 255, 0.10);
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --bg: #0a1128;
+  --pill-fg: #f3ece1;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  overflow-x: hidden;
+  font-family: 'Roboto Flex', sans-serif;
+}
+
+a { color: #a8461a; text-decoration: none; }
+a:hover { color: #c96b34; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  margin: 0;
+}
+
+/* The hero never scrolls — .spacer below it supplies the scroll range that
+   drives the animation, so the headline stays pinned while progress advances. */
+.hero {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.spacer { height: 0; }
+
+/* ---------- Desktop ---------- */
+
+.desktop { position: absolute; inset: 0; }
+
+.lines {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* padding-left/right set by main.js (edgeInset) */
+}
+
+.line {
+  width: 100%;
+  white-space: nowrap;
+  line-height: 0.9;
+}
+
+.line--2 { margin-top: 1vh; }
+
+.word {
+  display: inline-block;
+  line-height: 0.9;
+  font-weight: 900;
+  font-variation-settings: 'wght' 900;
+  color: var(--accent);
+}
+
+/* font-size, transform and opacity are all driven per-frame by main.js */
+.part {
+  display: inline-block;
+  transform-origin: center center;
+}
+
+.buttons {
+  position: absolute;
+  left: 50%;
+  top: 75vh;
+  display: flex;
+  gap: 20px;
+  transform: translate(-50%, calc(-50% + 36px));
+  opacity: 0;
+}
+
+.scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 6vh;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.chevron {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+/* ---------- Mobile (portrait) ---------- */
+
+.mobile { position: absolute; inset: 0; }
+
+.mobile-mark {
+  position: absolute;
+  left: 50%;
+  top: 25vh;
+  transform: translate(-50%, -50%);
+  color: var(--accent);
+  font-weight: 900;
+  font-variation-settings: 'wght' 900;
+  font-size: min(20vw, 90px);
+  white-space: nowrap;
+}
+
+.mobile-buttons {
+  position: absolute;
+  left: 50%;
+  top: 75vh;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+}
+
+/* ---------- Shared ---------- */
+
+.pill {
+  padding: 18px 40px;
+  border-radius: 999px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  color: var(--pill-fg);
+  font-size: 17px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pill:hover { color: var(--pill-fg); }
+
+.pill--block {
+  padding: 16px 0;
+  width: 220px;
+  text-align: center;
+  font-size: 16px;
+}

@@ -1,0 +1,11 @@
+{
+  "name": "MorSo",
+  "version": "1.0.0",
+  "description": "Mortal Software (MorSo) hero page",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true
+}

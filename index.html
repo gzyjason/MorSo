@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mortal Software — MorSo</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+<div class="hero" id="hero">
+  <h1 class="visually-hidden">Mortal Software — MorSo</h1>
+
+  <!-- Desktop / landscape: "Mortal" over "Software", combining into "MorSo" on scroll -->
+  <div class="desktop" id="desktop" hidden>
+    <div class="lines" id="lines">
+      <div class="line">
+        <span class="word" id="line1Word"><span class="part" id="mor">Mor</span><span class="part" id="tal">tal</span></span>
+      </div>
+      <div class="line line--2">
+        <span class="word" id="line2Word"><span class="part" id="so">So</span><span class="part" id="ftware">ftware</span></span>
+      </div>
+    </div>
+
+    <div class="buttons" id="buttons">
+      <a class="pill" href="#">StepOne</a>
+      <a class="pill" href="#">Ziye Gao</a>
+    </div>
+
+    <div class="scroll-hint" id="scrollHint">
+      <span>Scroll</span>
+      <span class="chevron"></span>
+    </div>
+  </div>
+
+  <!-- Portrait: static lockup, no scroll animation -->
+  <div class="mobile" id="mobile" hidden>
+    <div class="mobile-mark">MorSo</div>
+    <div class="mobile-buttons">
+      <a class="pill pill--block" href="#">StepOne</a>
+      <a class="pill pill--block" href="#">Ziye Gao</a>
+    </div>
+  </div>
+</div>
+
+<!-- Gives the document its scroll range; height is set by main.js -->
+<div class="spacer" id="spacer"></div>
+
+<script src="./main.js"></script>
+</body>
+</html>
