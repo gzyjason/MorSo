@@ -197,6 +197,17 @@ function relayout() {
 }
 
 /**
+ * Both sites deploy to a single Firebase Hosting site, and Hosting cannot route
+ * on the Host header — every domain attached to a site serves the same files. So
+ * when stepone.<domain> lands on this page, bounce it to the StepOne page.
+ * The local dev server routes by Host itself, so this never fires there.
+ */
+if (window.location.hostname.startsWith('stepone.') &&
+    !window.location.pathname.startsWith('/stepone')) {
+  window.location.replace('/stepone/');
+}
+
+/**
  * StepOne lives on the `stepone.` subdomain of whatever host serves this page —
  * stepone.localhost:3000 in development, stepone.<domain> in production. The
  * markup's `/stepone/` href stays as the fallback if this never runs.
@@ -205,6 +216,9 @@ function steponeUrl() {
   const { protocol, hostname, port } = window.location;
   if (!hostname) return './stepone/'; // opened straight off the filesystem
   if (hostname.startsWith('stepone.')) return './';
+  // Firebase's own *.web.app / *.firebaseapp.com hosts (the default Hosting URL
+  // and preview channels) have no stepone subdomain, so stay on the path.
+  if (/\.(web\.app|firebaseapp\.com)$/.test(hostname)) return '/stepone/';
   return `${protocol}//stepone.${hostname.replace(/^www\./, '')}${port ? ':' + port : ''}/`;
 }
 

@@ -1,0 +1,38 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/.*/**",
+      "**/node_modules/**",
+      ".git/**",
+      ".idea/**",
+      ".claude/**",
+      "package.json",
+      "package-lock.json",
+      "index.js",
+      "CLAUDE.md"
+    ],
+    "rewrites": [
+      {
+        "source": "/stepone/**",
+        "destination": "/stepone/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/assets/**",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        ]
+      },
+      {
+        "source": "**/*.@(html|js|css)",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        ]
+      }
+    ]
+  }
+}
