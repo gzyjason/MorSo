@@ -4,23 +4,56 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A single-page hero for "Mortal Software" (MorSo), ported from the Claude Design component
-`MorSo.dc.html` in the project *Mortal Software Hero Design*
-(`2de61ac0-3005-458f-8617-0334a0c242c1`). Static site, no dependencies, no build step.
+Two static sites in one repo, both hand-ported from Claude Design components. No dependencies,
+no build step.
+
+| Site | Lives in | Ported from |
+|---|---|---|
+| MorSo hero | repo root | `MorSo.dc.html` — *Mortal Software Hero Design* (`2de61ac0-3005-458f-8617-0334a0c242c1`) |
+| StepOne landing | `stepone/` | `StepOne Landing.dc.html` — (`f0e33850-b1c2-46c8-bcc8-bdd29e506a78`) |
 
 ## Commands
 
 ```bash
-npm start        # serve the site at http://localhost:3000 (PORT env var to change)
+npm start        # http://localhost:3000  (MorSo)
+                 # http://stepone.localhost:3000  (StepOne)
 ```
 
-`index.js` is a zero-dependency static file server used only for local development — it is not
-part of the deployed site. Deploying means serving `index.html`, `styles.css`, `main.js`, and
-`assets/` as static files.
+`index.js` is a zero-dependency static server for local development only. It picks the site
+from the `Host` header — any `stepone.*` host serves out of `stepone/`, everything else serves
+the repo root. Browsers resolve `*.localhost` to loopback, so no `/etc/hosts` entry is needed.
+`/stepone/` also works as a plain path, which is the fallback when a host has no subdomain
+routing.
+
+Deploying means serving the root as the apex site and `stepone/` as `stepone.<domain>`.
 
 `npm test` is still the npm placeholder; there is no test suite.
 
-## Architecture
+## Cross-site link
+
+The MorSo hero's StepOne button carries `class="js-stepone"` and a static `/stepone/` href.
+`steponeUrl()` in `main.js` rewrites it at load time to the `stepone.` subdomain of whatever
+host is serving the page, so the same build works on localhost and in production without
+editing. The static href is the no-JS fallback.
+
+## Architecture — StepOne (`stepone/`)
+
+Static hero, then four selling-point sections generated in `main.js` from `SECTIONS` and
+revealed by an `IntersectionObserver` (threshold 0.22, unobserved after first reveal). `CONFIG`
+mirrors the design's prop panel (`appStoreUrl`, `tiltFrames`).
+
+The phone mock layers two images inside `.phone`: `.phone-shot` (the screenshot) under
+`.phone-frame` (`assets/phone-frame.png`, an official device render — bezel and dynamic island
+are baked into the PNG, transparent everywhere else). The screenshot's inset (`left 5.2593%`,
+`top 2.4638%`, `89.4074% × 95.0362%`) was measured directly from `phone-frame.png`'s alpha
+channel so it sits flush under the screen cutout; `--phone-r` (on `.phone-shot`) only rounds the
+screenshot's own corners as a fallback in case those insets are ever nudged. If the frame image
+changes, re-derive the insets from its alpha channel rather than eyeballing them.
+
+`assets/{home,types,swipe,journey}.png` are the real app screenshots (1206×2622, matching the
+frame's screen cutout almost exactly).
+
+## Architecture — MorSo (repo root)
 
 The whole animation is driven by one number: `state.progress`, the fraction of the scroll range
 that has been consumed (0 → 1). Everything else is derived from it.
@@ -62,6 +95,11 @@ flowing through those variables rather than hardcoding them in `styles.css`.
 - `assets/Roboto-Variable.woff2` is the Roboto Flex variable font (latin subset, wght 100–1000).
   Layout measurement depends on its real glyph widths, so `main.js` re-runs `computeLayout()`
   after `document.fonts.ready` — without that, the first fit can happen against the fallback face.
-- When re-syncing from the design project, `MorSo.dc.html` is a `.dc` component (template with
-  `{{ }}` bindings plus a `DCLogic` class) that runs against the React-based `support.js` runtime.
+- The four StepOne app screenshots and `phone-frame.png` were too large for `DesignSync.get_file`
+  (256 KiB truncation limit) to pull from the design project, so they were supplied directly and
+  dropped into `stepone/assets/` by hand instead.
+- Fonts are self-hosted latin subsets rather than the design's Google Fonts CDN link, matching
+  the MorSo page's offline-capable approach.
+- When re-syncing from the design projects, `.dc.html` files are components (template with
+  `{{ }}` bindings plus a `DCLogic` class) that run against the React-based `support.js` runtime.
   This repo is a hand-port to vanilla DOM, not a copy — changes have to be translated, not pasted.

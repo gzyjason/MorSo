@@ -196,6 +196,20 @@ function relayout() {
   applyFrame();
 }
 
+/**
+ * StepOne lives on the `stepone.` subdomain of whatever host serves this page —
+ * stepone.localhost:3000 in development, stepone.<domain> in production. The
+ * markup's `/stepone/` href stays as the fallback if this never runs.
+ */
+function steponeUrl() {
+  const { protocol, hostname, port } = window.location;
+  if (!hostname) return './stepone/'; // opened straight off the filesystem
+  if (hostname.startsWith('stepone.')) return './';
+  return `${protocol}//stepone.${hostname.replace(/^www\./, '')}${port ? ':' + port : ''}/`;
+}
+
+document.querySelectorAll('.js-stepone').forEach((link) => { link.href = steponeUrl(); });
+
 document.body.appendChild(measurer);
 applyTheme();
 relayout();
