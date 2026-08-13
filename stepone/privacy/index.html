@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — StepOne</title>
+<meta name="description" content="Privacy Policy for the StepOne app.">
+<link rel="stylesheet" href="../assets/legal.css">
+</head>
+<body>
+
+<div class="page">
+  <div class="blob blob--1"></div>
+  <div class="blob blob--2"></div>
+
+  <div class="wrap">
+
+    <a class="back" href="../">&larr; Back to StepOne</a>
+
+    <h1>Privacy Policy for StepOne</h1>
+
+    <p class="effective"><strong>Effective date:</strong> August 12, 2026</p>
+
+    <p>This policy explains what information StepOne (&ldquo;the app&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) collects, how it is used, and the choices you have. It&rsquo;s written to match what the app actually does &mdash; not a generic template &mdash; so if the app&rsquo;s behavior changes, this document should be updated alongside it.</p>
+
+    <h2>Who this policy covers</h2>
+    <p>StepOne is published by MorSo and built and maintained by a single independent developer, Ziye Gao (&ldquo;we&rdquo;, &ldquo;us&rdquo;). This policy applies to anyone who downloads or uses the StepOne iOS app.</p>
+    <p>StepOne is also open-source software: its full source code is public at <a href="https://github.com/gzyjason/StepOne" target="_blank" rel="noopener">github.com/gzyjason/StepOne</a> under the MIT License. That means the data practices described below aren&rsquo;t just a promise &mdash; you, or anyone, can read the code that runs on your device and verify them directly. Being a one-person project also means there&rsquo;s no separate support department; the contact address below reaches the developer.</p>
+
+    <h2>Information we collect</h2>
+
+    <h3>Account information</h3>
+    <p>When you register or sign in, we collect what&rsquo;s needed to create and secure your account:</p>
+    <ul>
+      <li><strong>Email and password</strong>, if you register directly. Your password is never seen or stored by us in readable form &mdash; it is handled entirely by Firebase Authentication (a Google service), which stores only a securely hashed version.</li>
+      <li><strong>Name and email</strong>, if you sign in with <strong>Sign in with Apple</strong>. If you choose Apple&rsquo;s &ldquo;Hide My Email&rdquo; option, we receive the private relay address Apple generates instead of your real one.</li>
+      <li><strong>Name and email</strong>, if you sign in with <strong>Google Sign-In</strong>, as provided by your Google account.</li>
+    </ul>
+    <p>This information is stored by Firebase Authentication on our behalf. We do not operate our own separate database of accounts.</p>
+
+    <h3>Trip progress</h3>
+    <p>If you&rsquo;re signed in, StepOne keeps your chosen Trip categories, which Trips you&rsquo;ve completed or discarded, and your distance/milestone progress in sync with our servers &mdash; specifically, in a Cloud Firestore document tied to your account, holding only those fields. That&rsquo;s what lets your progress follow you to a new device or survive a reinstall. Nobody but your signed-in account can read or write that document &mdash; it&rsquo;s enforced by server-side rules, not just app behavior. If you&rsquo;re not signed in, this data stays on your device only.</p>
+
+    <h3>Notification schedule</h3>
+    <p>If you turn on reminders, the times you choose are scheduled directly with iOS (<code>UNUserNotificationCenter</code>) as local, on-device notifications. These do not go through a push notification server, and we never see or collect them.</p>
+
+    <h3>Information we do <em>not</em> collect</h3>
+    <p>StepOne does not use analytics, advertising, or crash-reporting SDKs, does not access your location, camera, photo library, or contacts, and does not use advertising identifiers (IDFA) or any other cross-app tracking. We do not sell your information, and we don&rsquo;t have any to sell beyond the account details above.</p>
+
+    <h2>How we use your information</h2>
+    <ul>
+      <li>To create, secure, and let you sign in to your account.</li>
+      <li>To personalize the greeting and content shown in the app (e.g., using your name).</li>
+      <li>To communicate with you about your account &mdash; for example, email verification and password-related emails, sent automatically by Firebase Authentication.</li>
+    </ul>
+
+    <h2>Third-party services</h2>
+    <p>StepOne relies on the following third parties to provide sign-in, authentication, and Trip progress storage. Each has its own privacy policy governing how it handles your data:</p>
+    <ul>
+      <li><strong>Firebase Authentication</strong> (Google) &mdash; <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a></li>
+      <li><strong>Cloud Firestore</strong> (Google), for the Trip progress described above &mdash; <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a></li>
+      <li><strong>Sign in with Apple</strong> &mdash; <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">apple.com/legal/privacy</a></li>
+      <li><strong>Google Sign-In</strong> &mdash; <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></li>
+    </ul>
+
+    <h2>Data retention and deletion</h2>
+    <p>Your account information, and your synced Trip progress, are retained for as long as your account exists. You can permanently delete your account at any time from <strong>Settings &rarr; Account &rarr; Delete Account</strong> inside the app, which removes both your account from Firebase Authentication and your Trip progress document from Cloud Firestore. Data that lives only on your device &mdash; because you were never signed in, or signed out &mdash; is removed automatically when you sign out, delete your account, or uninstall the app.</p>
+    <p>To request deletion any other way, contact us at <a href="mailto:support@morso.one">support@morso.one</a>.</p>
+
+    <h2>Your rights</h2>
+    <p>Depending on where you live, you may have rights to access, correct, or delete your personal information, or to object to or restrict how it&rsquo;s used. You can exercise most of these directly in the app (updating your name or email, or deleting your account in Settings), or by contacting us at <a href="mailto:support@morso.one">support@morso.one</a>.</p>
+
+    <h2>Children&rsquo;s privacy</h2>
+    <p>StepOne is not directed at children under 13 (or the minimum age required by your country&rsquo;s law), and we do not knowingly collect information from children under that age. If you believe a child has created an account, contact us at <a href="mailto:support@morso.one">support@morso.one</a> and we will delete it.</p>
+
+    <h2>International data transfers</h2>
+    <p>Firebase Authentication and Cloud Firestore store data on Google Cloud infrastructure, which may process and store information outside your country of residence. StepOne&rsquo;s Firestore data is currently hosted in the United States (<code>nam5</code>).</p>
+
+    <h2>Changes to this policy</h2>
+    <p>We may update this policy as the app changes. If we make material changes, we&rsquo;ll update the effective date above.</p>
+
+    <h2>Contact us</h2>
+    <p class="last">Questions about this policy or your data can be sent to <a href="mailto:support@morso.one">support@morso.one</a>.</p>
+
+  </div>
+</div>
+
+</body>
+</html>
