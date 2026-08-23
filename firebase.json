@@ -18,6 +18,10 @@
       {
         "source": "/stepone/**",
         "destination": "/stepone/index.html"
+      },
+      {
+        "source": "/gzyjason/**",
+        "destination": "/gzyjason/index.html"
       }
     ],
     "headers": [

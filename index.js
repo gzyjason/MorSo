@@ -1,12 +1,13 @@
 // Zero-dependency static server for local development: `npm start`.
 //
-// Two sites live in this repo, and the Host header picks between them:
+// Three sites live in this repo, and the Host header picks between them:
 //   morso     -> repo root          http://localhost:3000
 //   stepone   -> ./stepone          http://stepone.localhost:3000
+//   gzyjason  -> ./gzyjason         http://gzyjason.localhost:3000
 //
 // Browsers resolve *.localhost to the loopback address, so the subdomain works
-// with no /etc/hosts entry. The `/stepone/` path also serves the same files, so
-// the page still works on hosts without subdomain routing.
+// with no /etc/hosts entry. The `/stepone/` and `/gzyjason/` paths also serve
+// the same files, so each page still works on hosts without subdomain routing.
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -16,6 +17,7 @@ const PORT = Number(process.env.PORT) || 3000;
 
 const SITES = {
   stepone: path.join(ROOT, 'stepone'),
+  gzyjason: path.join(ROOT, 'gzyjason'),
 };
 
 const MIME = {
@@ -63,6 +65,7 @@ http
     });
   })
   .listen(PORT, () => {
-    console.log(`MorSo   → http://localhost:${PORT}`);
-    console.log(`StepOne → http://stepone.localhost:${PORT}`);
+    console.log(`MorSo    → http://localhost:${PORT}`);
+    console.log(`StepOne  → http://stepone.localhost:${PORT}`);
+    console.log(`gzyjason → http://gzyjason.localhost:${PORT}`);
   });
