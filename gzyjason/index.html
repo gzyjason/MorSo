@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Portfolio — Ziye Gao</title>
-<meta name="description" content="Ziye Gao's portfolio: StepOne and a full-stack multiplayer chess project.">
+<title>Ziye Gao</title>
+<meta name="description" content="Ziye Gao — Computer Science, HCI emphasis, BYU.">
 <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -13,43 +13,58 @@
 
 <div class="page">
   <header class="nav">
-    <a class="pill" href="/">Home</a>
-    <a class="pill pill--current" href="/" aria-current="page">Portfolio</a>
-    <a class="pill" href="/">Contact</a>
+    <a class="pill pill--current" href="/" aria-current="page">Home</a>
+    <a class="pill" href="/portfolio/">Portfolio</a>
+    <a class="pill" href="/contact/">Contact</a>
   </header>
 
-  <main class="main">
-    <div class="title-row">
-      <div class="rule"></div>
-      <h1 class="title">Portfolio</h1>
-      <div class="rule"></div>
-    </div>
-
-    <article class="card">
-      <h2 class="card-title">StepOne</h2>
-      <div class="card-rule"></div>
-      <p class="card-desc">An open source full stack lifestyle iOS app that uses a "Journey" system to boost the user's motivation through small, achievable tasks.</p>
-      <div class="card-actions">
-        <a class="btn" href="https://github.com/gzyjason/StepOne" target="_blank" rel="noopener">
-          <img src="./assets/github.svg" alt="GitHub" width="20" height="20">
-          <span>View on GitHub</span>
-        </a>
+  <main class="main main--flush">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="portrait-frame glass">
+          <img src="./assets/portrait.jpg" alt="Portrait of Ziye Gao">
+        </div>
+        <div class="hero-text">
+          <h1 class="hero-name">Ziye Gao</h1>
+          <div class="hero-role">Computer Science &middot; HCI Emphasis &mdash; BYU</div>
+          <div class="hero-rule"></div>
+          <p class="hero-bio">I'm an undergraduate at Brigham Young University studying Computer Science with an emphasis in Human-Computer Interaction. I build full-stack software with attention to how people actually use it, from real-time systems to the interfaces that sit on top of them.</p>
+        </div>
       </div>
-    </article>
+      <a href="#skills" aria-label="Scroll to skills" class="scroll-arrow">
+        <svg width="30" height="18" viewBox="0 0 30 18" fill="none"><path d="M2 2 L15 15 L28 2" stroke="#9fb0bc" stroke-width="3.5" stroke-linecap="square"></path></svg>
+      </a>
+    </section>
 
-    <article class="card">
-      <h2 class="card-title">Full-Stack Multiplayer Chess Project</h2>
-      <div class="card-rule"></div>
-      <p class="card-desc">A full stack multiplayer chess project built in Java using WebSocket. The app allows p2p games in real time as well as observers to watch the game.</p>
-      <div class="card-actions">
-        <a class="btn" href="https://github.com/gzyjason/chess" target="_blank" rel="noopener">
-          <img src="./assets/github.svg" alt="GitHub" width="20" height="20">
-          <span>View on GitHub</span>
-        </a>
+    <section id="skills" class="skills">
+      <div class="skills-title-row">
+        <div class="rule"></div>
+        <h2 class="title">Skills</h2>
+        <div class="rule"></div>
       </div>
-    </article>
-
-    <p class="more">More projects coming soon...</p>
+      <div class="skills-grid">
+        <div class="skill-card glass">
+          <img src="./assets/python.svg" alt="Python logo">
+          <div class="skill-label">Python</div>
+        </div>
+        <div class="skill-card glass">
+          <img src="./assets/cpp.webp" alt="C++ logo">
+          <div class="skill-label">C++</div>
+        </div>
+        <div class="skill-card glass">
+          <img src="./assets/java.svg" alt="Java logo">
+          <div class="skill-label">Java</div>
+        </div>
+        <div class="skill-card glass">
+          <img src="./assets/javascript.svg" alt="JavaScript logo">
+          <div class="skill-label">JavaScript</div>
+        </div>
+        <div class="skill-card glass">
+          <img src="./assets/html.webp" alt="HTML5 logo">
+          <div class="skill-label">HTML</div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">Ziye Gao, 2026</footer>

@@ -32,12 +32,18 @@ Deploying means serving the root as the apex site, `stepone/` as `stepone.<domai
 
 `npm test` is still the npm placeholder; there is no test suite.
 
-## Cross-site link
+## Cross-site links
 
-The MorSo hero's StepOne button carries `class="js-stepone"` and a static `/stepone/` href.
-`steponeUrl()` in `main.js` rewrites it at load time to the `stepone.` subdomain of whatever
-host is serving the page, so the same build works on localhost and in production without
-editing. The static href is the no-JS fallback.
+The MorSo hero's StepOne and Ziye Gao buttons carry `class="js-stepone"` / `class="js-gzyjason"`
+and static `/stepone/` / `/gzyjason/` hrefs. `subdomainUrl()` in `main.js` rewrites each at load
+time to the matching subdomain of whatever host is serving the page, so the same build works on
+localhost and in production without editing. The static hrefs are the no-JS fallback.
+
+`bounceSubdomain()` in `main.js` is the other half of this: since StepOne and gzyjason deploy to
+the same shared Firebase Hosting site (Hosting can't route on the Host header), landing on
+`stepone.<domain>` or `gzyjason.<domain>` in production would otherwise render this MorSo hero
+page. It redirects to `/stepone/` or `/gzyjason/` when the hostname says so. The local dev server
+routes by Host itself (`index.js`'s `siteRoot()`), so this never fires there.
 
 ## Architecture — StepOne (`stepone/`)
 
@@ -95,14 +101,31 @@ flowing through those variables rather than hardcoding them in `styles.css`.
 
 ## Architecture — gzyjason (`gzyjason/`)
 
-Static, no JS: a fixed glass-pill nav, a "Portfolio" title with divider rules, glass project
-cards, and a footer. The `Portfolio Dark.dc.html` source is one page out of a multi-page design
-project (Home Dark, Portfolio Dark, Contact Dark); only Portfolio was ported, since that's the
-only page requested. The nav's Home and Contact links point back to `/` rather than to
-not-yet-built pages — update them if/when those pages are added.
+Static, no JS: a fixed glass-pill nav, a page title with divider rules, glass cards, and a
+footer, shared via plain CSS classes in `styles.css` (no templating — each page repeats the
+nav/noise/footer markup, per this repo's no-build-step convention). Ported from the design
+project's three pages (`Home Dark.dc.html`, `Portfolio Dark.dc.html`, `Contact Dark.dc.html`):
+
+| Page | Lives in |
+|---|---|
+| Home | `gzyjason/index.html` (site root) |
+| Portfolio | `gzyjason/portfolio/index.html` |
+| Contact | `gzyjason/contact/index.html` |
+
+`.glass` is the shared glassmorphism look (gradient background, blur, border, shadow) — `.card`,
+`.skill-card`, and `.contact-link` compose it with `class="card glass"` etc. rather than
+duplicating those properties.
 
 `.noise` is the same fractalNoise-filter SVG data-URI texture technique as the design source,
 overlaid at low opacity across the whole page.
+
+Two of the five skill-grid icons on Home (`assets/javascript.svg`, `assets/linkedin.svg`) are
+hand-authored replacements for the design's `JavaScript.webp` and `InBug-Black.png` — repeated
+attempts to transcribe those binary files out of the design project produced silently-corrupted
+image data (valid file headers, garbage past the first few KB), so clean equivalent SVGs were
+substituted instead of shipping broken images. `assets/cpp.webp`, `assets/html.webp`,
+`assets/java.svg`, and `assets/python.svg` are byte-exact from the design project and were
+verified by fully decoding each image after transfer, not just checking file headers.
 
 ## Notes
 

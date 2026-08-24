@@ -28,6 +28,9 @@ const MIME = {
   '.ttf': 'font/ttf',
   '.png': 'image/png',
   '.svg': 'image/svg+xml',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
 };
 
 /** Repo root, unless the Host names a subdomain we serve from its own directory. */

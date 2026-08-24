@@ -197,32 +197,39 @@ function relayout() {
 }
 
 /**
- * Both sites deploy to a single Firebase Hosting site, and Hosting cannot route
- * on the Host header — every domain attached to a site serves the same files. So
- * when stepone.<domain> lands on this page, bounce it to the StepOne page.
- * The local dev server routes by Host itself, so this never fires there.
+ * StepOne and gzyjason each deploy to a single shared Firebase Hosting site, and
+ * Hosting cannot route on the Host header — every domain attached to a site
+ * serves the same files. So when stepone.<domain> or gzyjason.<domain> lands on
+ * this page, bounce it to the right page. The local dev server routes by Host
+ * itself, so this never fires there.
  */
-if (window.location.hostname.startsWith('stepone.') &&
-    !window.location.pathname.startsWith('/stepone')) {
-  window.location.replace('/stepone/');
+function bounceSubdomain(sub) {
+  if (window.location.hostname.startsWith(`${sub}.`) &&
+      !window.location.pathname.startsWith(`/${sub}`)) {
+    window.location.replace(`/${sub}/`);
+  }
 }
+bounceSubdomain('stepone');
+bounceSubdomain('gzyjason');
 
 /**
- * StepOne lives on the `stepone.` subdomain of whatever host serves this page —
- * stepone.localhost:3000 in development, stepone.<domain> in production. The
- * markup's `/stepone/` href stays as the fallback if this never runs.
+ * StepOne and gzyjason each live on their own subdomain of whatever host serves
+ * this page — stepone.localhost:3000 / gzyjason.localhost:3000 in development,
+ * stepone.<domain> / gzyjason.<domain> in production. The markup's static
+ * `/stepone/` and `/gzyjason/` hrefs stay as the fallback if this never runs.
  */
-function steponeUrl() {
+function subdomainUrl(sub) {
   const { protocol, hostname, port } = window.location;
-  if (!hostname) return './stepone/'; // opened straight off the filesystem
-  if (hostname.startsWith('stepone.')) return './';
+  if (!hostname) return `./${sub}/`; // opened straight off the filesystem
+  if (hostname.startsWith(`${sub}.`)) return './';
   // Firebase's own *.web.app / *.firebaseapp.com hosts (the default Hosting URL
-  // and preview channels) have no stepone subdomain, so stay on the path.
-  if (/\.(web\.app|firebaseapp\.com)$/.test(hostname)) return '/stepone/';
-  return `${protocol}//stepone.${hostname.replace(/^www\./, '')}${port ? ':' + port : ''}/`;
+  // and preview channels) have no subdomains, so stay on the path.
+  if (/\.(web\.app|firebaseapp\.com)$/.test(hostname)) return `/${sub}/`;
+  return `${protocol}//${sub}.${hostname.replace(/^www\./, '')}${port ? ':' + port : ''}/`;
 }
 
-document.querySelectorAll('.js-stepone').forEach((link) => { link.href = steponeUrl(); });
+document.querySelectorAll('.js-stepone').forEach((link) => { link.href = subdomainUrl('stepone'); });
+document.querySelectorAll('.js-gzyjason').forEach((link) => { link.href = subdomainUrl('gzyjason'); });
 
 document.body.appendChild(measurer);
 applyTheme();
