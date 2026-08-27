@@ -249,39 +249,19 @@ a:hover {
 
 .hero {
   position: relative;
-  min-height: calc(100vh - 105px);
-  display: grid;
-  place-items: center;
-  padding: 136px 24px 90px;
-}
-
-.hero-inner {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(36px, 6vw, 76px);
-  max-width: 1060px;
-}
-
-.portrait-frame {
-  flex: 0 0 auto;
-  padding: 12px;
-}
-
-.portrait-frame img {
-  display: block;
-  width: clamp(220px, 28vw, 320px);
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
+  padding: 170px 24px 120px;
 }
 
 .hero-text {
-  flex: 1 1 380px;
-  max-width: 520px;
+  max-width: 640px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
+  text-align: center;
 }
 
 .hero-name {
@@ -303,8 +283,9 @@ a:hover {
 }
 
 .hero-rule {
+  width: 120px;
   height: 1px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .hero-bio {
