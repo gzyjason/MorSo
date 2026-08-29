@@ -50,8 +50,8 @@ That bounce only covers the root of each subdomain, though — it works by loadi
 deep link on a subdomain, e.g. `gzyjason.<domain>/portfolio/`, resolves against the shared file
 tree with no `/gzyjason` prefix, finds nothing at literal `/portfolio/`, and 404s server-side
 before any JS can run. `firebase.json`'s `redirects` cover the specific subpages this can happen
-for (`/portfolio/`, `/contact/`, `/terms/`, `/privacy/`) by sending the browser on to the real
-URL — add an entry there for any new subpage under `stepone/` or `gzyjason/` that should be
+for (`/portfolio/`, `/contact/`, `/terms/`, `/privacy/`, `/faq/`) by sending the browser on to the
+real URL — add an entry there for any new subpage under `stepone/` or `gzyjason/` that should be
 reachable as a bare path on its subdomain.
 
 These are `redirects`, not `rewrites`, on purpose: a rewrite serves the target file's content

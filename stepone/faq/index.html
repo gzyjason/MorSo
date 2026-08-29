@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>
+/* Firebase Hosting can't route on the Host header, so landing here from the
+   stepone.<domain> subdomain always goes through a /stepone/ path server-side.
+   Once loaded, strip that prefix from the address bar — cosmetic only, doesn't
+   affect the relative asset paths already resolved against it. */
+(function () {
+  var p = location.pathname;
+  if (location.hostname.startsWith('stepone.') && p.startsWith('/stepone/')) {
+    history.replaceState(null, '', p.slice(8) + location.search + location.hash);
+  }
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frequently Asked Questions — StepOne</title>
+<meta name="description" content="Frequently asked questions about the StepOne app.">
+<link rel="stylesheet" href="../assets/legal.css">
+</head>
+<body>
+
+<div class="page">
+  <div class="blob blob--1"></div>
+  <div class="blob blob--2"></div>
+
+  <div class="wrap">
+
+    <a class="back" href="../">&larr; Back to StepOne</a>
+
+    <h1>Frequently Asked Questions for StepOne</h1>
+
+    <p class="effective"><strong>Last updated:</strong> August 29, 2026</p>
+
+    <p>Answers to the questions we hear most about how StepOne works. If something here doesn&rsquo;t cover it, reach out at <strong><a href="mailto:support@morso.one">support@morso.one</a></strong> &mdash; see <a href="#contact-us">Contact us</a> below.</p>
+
+    <h2>What is StepOne?</h2>
+    <p>StepOne is a walking app built around small, real-life tasks instead of raw step counts. You pick the kinds of things you want to do more of &mdash; Trip Types like Creativity, Physical, Housework, Hygiene, Study, Hobby, and Social &mdash; and the app hands you one small &ldquo;Trip&rdquo; at a time: something like taking a short walk, doodling for two minutes, or stretching your arms. Complete it, and its distance is added to Your Journey.</p>
+
+    <h2>Do I actually need to walk to use it?</h2>
+    <p>No. Distance in StepOne is a metaphor for progress, not a GPS measurement. Each Trip is worth a set distance regardless of whether it involves moving your feet &mdash; StepOne doesn&rsquo;t use HealthKit, your location, or any pedometer to track you. It&rsquo;s up to you, honestly, to do the small thing and mark it done.</p>
+
+    <h2>What are Trip Types?</h2>
+    <p>Trip Types are the categories you choose from &mdash; Creativity, Physical, Housework, Hygiene, Study, Hobby, and Social. They determine what kinds of Trips get shown to you. You can change which Trip Types you&rsquo;re following at any time from <strong>Settings &rarr; Trip Types</strong>.</p>
+
+    <h2>What happens when I complete or discard a Trip?</h2>
+    <p>Completing a Trip adds its distance to Your Journey and moves it out of your queue. Discarding a Trip skips it without counting toward your progress &mdash; if you change your mind, discarded Trips can be restored from the category they came from. Either way, a new Trip takes its place.</p>
+
+    <h2>What is &ldquo;Your Journey&rdquo;?</h2>
+    <p>Your Journey is your running total distance, made up of everything you&rsquo;ve completed. It&rsquo;s organized into milestones &mdash; real-world distances with a bit of flavor, like <em>The Local Block</em> (0.5 km) or <em>The Central Park Loop</em> (3.1 km) &mdash; grouped into larger phases (<em>The Local Footsteps</em>, <em>The City Crossings</em>, and so on) so progress always feels like it&rsquo;s heading somewhere.</p>
+
+    <h2>Do I need an account to use StepOne?</h2>
+    <p>No. You can skip registration and use StepOne as a guest &mdash; your Trip Types, progress, and milestones are saved right on your device. Creating an account is only needed if you want that progress to follow you to another device or survive a reinstall.</p>
+
+    <h2>What&rsquo;s the difference between using StepOne as a guest and signing in?</h2>
+    <p>As a guest, everything lives locally on your device only. Signed in, your Trip Types, distance, milestones, and any discarded Trips sync to your account via Firebase, so switching phones or reinstalling won&rsquo;t lose your progress. You can register at any point after starting as a guest without losing what you&rsquo;ve already done.</p>
+
+    <h2>How do I sign in?</h2>
+    <p>You can register with an email and password, or sign in with <strong>Sign in with Apple</strong> or <strong>Google Sign-In</strong>. Whichever you choose, we only collect what&rsquo;s needed to create and secure the account &mdash; see our <a href="../privacy/">Privacy Policy</a> for the specifics.</p>
+
+    <h2>Will my progress sync across devices?</h2>
+    <p>Yes, once you&rsquo;re signed in. Your Trip Types, distance, milestones, and discarded Trips are kept in sync automatically &mdash; there&rsquo;s nothing to export or import manually.</p>
+
+    <h2>How do reminders work?</h2>
+    <p>If you turn on reminders in <strong>Settings &rarr; Notifications</strong>, StepOne will nudge you at a morning or evening time you choose, so a small Trip doesn&rsquo;t slip your mind. These are scheduled locally on your device &mdash; they don&rsquo;t go through a push server, and we never see or collect them. If notifications aren&rsquo;t working, check that they&rsquo;re allowed for StepOne in the iOS Settings app.</p>
+
+    <h2>Can I change my Trip Types after I&rsquo;ve started?</h2>
+    <p>Yes, any time, from <strong>Settings &rarr; Trip Types</strong>. Switching categories doesn&rsquo;t erase your existing progress on Your Journey &mdash; it just changes which Trips you&rsquo;ll be shown going forward.</p>
+
+    <h2>How do I delete my account?</h2>
+    <p>From <strong>Settings &rarr; Account &rarr; Delete Account</strong>. This permanently removes your account and all of Your Journey, and can&rsquo;t be undone. See our <a href="../privacy/">Privacy Policy</a> for exactly what that deletes.</p>
+
+    <h2>Is StepOne free?</h2>
+    <p>Yes.</p>
+
+    <h2>Is StepOne open source?</h2>
+    <p>Yes. The full source code is public at <a href="https://github.com/gzyjason/StepOne" target="_blank" rel="noopener">github.com/gzyjason/StepOne</a> under the MIT License, so you&rsquo;re welcome to read exactly how it works, verify our claims yourself, or fork it.</p>
+
+    <h2>Who makes StepOne?</h2>
+    <p>StepOne is published by MorSo and built and maintained by a single independent developer, Ziye Gao. There&rsquo;s no separate support team &mdash; the contact address below reaches the developer directly.</p>
+
+    <h2>What languages does StepOne support?</h2>
+    <p>English, Spanish, Simplified Chinese, Traditional Chinese, French, German, Japanese, and Korean, based on your device&rsquo;s language settings.</p>
+
+    <h2 id="contact-us">Contact us</h2>
+    <p class="last">Still have a question? Email <strong><a href="mailto:support@morso.one">support@morso.one</a></strong> and we&rsquo;ll get back to you. For how your data is handled, see our <a href="../privacy/">Privacy Policy</a>; for the rules of using the app, see our <a href="../terms/">Terms and Conditions</a>.</p>
+
+  </div>
+</div>
+
+</body>
+</html>

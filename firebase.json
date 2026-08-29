@@ -34,6 +34,11 @@
         "source": "/privacy/**",
         "destination": "/stepone/privacy/",
         "type": 301
+      },
+      {
+        "source": "/faq/**",
+        "destination": "/stepone/faq/",
+        "type": 301
       }
     ],
     "rewrites": [
