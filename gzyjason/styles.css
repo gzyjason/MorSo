@@ -248,11 +248,10 @@ a:hover {
 /* Home */
 
 .hero {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 170px 24px 120px;
+  padding: 158px 24px 0;
 }
 
 .hero-text {
@@ -297,17 +296,8 @@ a:hover {
   text-wrap: pretty;
 }
 
-.scroll-arrow {
-  position: absolute;
-  bottom: 26px;
-  left: 50%;
-  transform: translateX(-50%);
-  line-height: 0;
-  text-decoration: none;
-}
-
 .skills {
-  padding: 96px 24px 120px;
+  padding: 96px 24px 110px;
 }
 
 .skills-title-row {
