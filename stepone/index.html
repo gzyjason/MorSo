@@ -2,18 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>
-/* Firebase Hosting can't route on the Host header, so landing here from the
-   stepone.<domain> subdomain always goes through a /stepone/ path server-side.
-   Once loaded, strip that prefix from the address bar — cosmetic only, doesn't
-   affect the relative asset paths already resolved against it. */
-(function () {
-  var p = location.pathname;
-  if (location.hostname.startsWith('stepone.') && p.startsWith('/stepone/')) {
-    history.replaceState(null, '', p.slice(8) + location.search + location.hash);
-  }
-})();
-</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>StepOne</title>
 <meta name="description" content="Build motivation by completing simple, achievable tasks.">
@@ -64,5 +52,28 @@
 </div>
 
 <script src="./main.js"></script>
+<script>
+/* Firebase Hosting can't route on the Host header, so landing here from the
+   stepone.<domain> subdomain always goes through a /stepone/ path server-side.
+   history.replaceState() below changes the document's URL, and Chromium
+   re-resolves (and silently reloads, breaking it) any relative href/src still
+   on the page against that new URL — so pin every relative resource reference
+   (the stylesheet, the static images above, and main.js's dynamically-created
+   section/phone images) to its already-resolved absolute URL first.
+   Address-bar change is cosmetic only otherwise. */
+(function () {
+  var p = location.pathname;
+  if (location.hostname.startsWith('stepone.') && p.startsWith('/stepone/')) {
+    document.querySelectorAll('link[rel="stylesheet"], img').forEach(function (el) {
+      var attr = el.tagName === 'LINK' ? 'href' : 'src';
+      var val = el.getAttribute(attr);
+      if (val && !/^(?:[a-z]+:)?\/\//i.test(val) && val.charAt(0) !== '/') {
+        el[attr] = el[attr];
+      }
+    });
+    history.replaceState(null, '', p.slice(8) + location.search + location.hash);
+  }
+})();
+</script>
 </body>
 </html>
