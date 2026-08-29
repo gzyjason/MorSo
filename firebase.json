@@ -14,6 +14,28 @@
       "index.js",
       "CLAUDE.md"
     ],
+    "redirects": [
+      {
+        "source": "/portfolio/**",
+        "destination": "/gzyjason/portfolio/",
+        "type": 301
+      },
+      {
+        "source": "/contact/**",
+        "destination": "/gzyjason/contact/",
+        "type": 301
+      },
+      {
+        "source": "/terms/**",
+        "destination": "/stepone/terms/",
+        "type": 301
+      },
+      {
+        "source": "/privacy/**",
+        "destination": "/stepone/privacy/",
+        "type": 301
+      }
+    ],
     "rewrites": [
       {
         "source": "/stepone/**",

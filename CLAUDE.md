@@ -45,6 +45,23 @@ the same shared Firebase Hosting site (Hosting can't route on the Host header), 
 page. It redirects to `/stepone/` or `/gzyjason/` when the hostname says so. The local dev server
 routes by Host itself (`index.js`'s `siteRoot()`), so this never fires there.
 
+That bounce only covers the root of each subdomain, though — it works by loading this page's own
+`index.html` (which is the only place the redirect script lives) and redirecting from there. A
+deep link on a subdomain, e.g. `gzyjason.<domain>/portfolio/`, resolves against the shared file
+tree with no `/gzyjason` prefix, finds nothing at literal `/portfolio/`, and 404s server-side
+before any JS can run. `firebase.json`'s `redirects` cover the specific subpages this can happen
+for (`/portfolio/`, `/contact/`, `/terms/`, `/privacy/`) by sending the browser on to the real
+URL — add an entry there for any new subpage under `stepone/` or `gzyjason/` that should be
+reachable as a bare path on its subdomain.
+
+These are `redirects`, not `rewrites`, on purpose: a rewrite serves the target file's content
+while leaving the browser's URL (and thus the base for the page's own relative `../` asset links)
+at the original bare path, which breaks them. A redirect actually navigates the browser to the
+real URL first, so the page's relative links resolve correctly — and it's why those pages use
+relative asset paths rather than absolute `/gzyjason/...` ones, which would work in production but
+break local dev (`index.js`'s `siteRoot()` already serves `gzyjason/` as that host's own root, so
+an absolute `/gzyjason/...` path would double up).
+
 ## Architecture — StepOne (`stepone/`)
 
 Static hero, then four selling-point sections generated in `main.js` from `SECTIONS` and
