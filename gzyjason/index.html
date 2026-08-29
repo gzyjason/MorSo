@@ -65,5 +65,27 @@
   <footer class="footer">Ziye Gao, 2026</footer>
 </div>
 
+<script>
+/* Firebase Hosting can't route on the Host header, so landing here from the
+   gzyjason.<domain> subdomain always goes through a /gzyjason/ path server-side.
+   history.replaceState() below changes the document's URL, and Chromium
+   re-resolves (and silently reloads, breaking it) any relative href/src still
+   on the page against that new URL — so pin every relative resource reference
+   (the stylesheet and the images above) to its already-resolved absolute URL
+   first. Address-bar change is cosmetic only otherwise. */
+(function () {
+  var p = location.pathname;
+  if (location.hostname.startsWith('gzyjason.') && p.startsWith('/gzyjason/')) {
+    document.querySelectorAll('link[rel="stylesheet"], img').forEach(function (el) {
+      var attr = el.tagName === 'LINK' ? 'href' : 'src';
+      var val = el.getAttribute(attr);
+      if (val && !/^(?:[a-z]+:)?\/\//i.test(val) && val.charAt(0) !== '/') {
+        el[attr] = el[attr];
+      }
+    });
+    history.replaceState(null, '', p.slice(9) + location.search + location.hash);
+  }
+})();
+</script>
 </body>
 </html>

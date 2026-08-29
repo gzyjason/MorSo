@@ -64,14 +64,21 @@ an absolute `/gzyjason/...` path would double up).
 
 That still leaves the `/stepone/` (or `/gzyjason/`) segment sitting in the address bar after the
 redirect lands, which is undesirable for URLs meant to be shared or typed (StepOne's own Terms
-text points people at `stepone.morso.one/terms`). Each of `stepone/index.html`,
-`stepone/terms/index.html`, and `stepone/privacy/index.html` carries a small inline script, first
-thing in `<head>`, that runs `history.replaceState()` after load to strip a leading `/stepone/`
-from the visible path. It's cosmetic only — it fires after the page's relative assets have already
-resolved against the pre-redirect URL, so it can't break them the way a rewrite would. It checks
-`location.hostname.startsWith('stepone.')` and a `/stepone/`-prefixed path, so it's a no-op both in
-local dev (no `/stepone/` prefix there) and when the page is reached via the bare `/stepone/...`
-path on a host without subdomain routing (where showing that prefix is still correct).
+text points people at `stepone.morso.one/terms`). Every page in `stepone/` (`index.html`,
+`terms/index.html`, `privacy/index.html`, `faq/index.html`) and every page in `gzyjason/`
+(`index.html`, `portfolio/index.html`, `contact/index.html`) carries a small inline script, last
+thing before `</body>`, that runs `history.replaceState()` after load to strip the leading
+`/stepone/` or `/gzyjason/` segment from the visible path. It's cosmetic only otherwise, but it has
+to sit at the end of `<body>` rather than the top of `<head>`: `history.replaceState()` changes
+`document.URL`, and Chromium re-resolves (and silently reloads) any *relative* `href`/`src` still
+on the page against that new URL the moment it changes — breaking every relative stylesheet/image
+if the script ran before those elements existed or before the browser had already resolved them.
+So the script pins each `<link rel="stylesheet">` and `<img>` to its already-resolved absolute URL
+(reading `el[attr]` back and reassigning it) immediately before calling `replaceState()`, making
+the later re-resolution a no-op. It checks `location.hostname.startsWith('stepone.')` /
+`'gzyjason.'` and the matching path prefix, so it's a no-op both in local dev (no such prefix
+there) and when a page is reached via its bare `/stepone/...` or `/gzyjason/...` path on a host
+without subdomain routing (where showing that prefix is still correct).
 
 ## Architecture — StepOne (`stepone/`)
 
