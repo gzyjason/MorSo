@@ -62,6 +62,17 @@ relative asset paths rather than absolute `/gzyjason/...` ones, which would work
 break local dev (`index.js`'s `siteRoot()` already serves `gzyjason/` as that host's own root, so
 an absolute `/gzyjason/...` path would double up).
 
+That still leaves the `/stepone/` (or `/gzyjason/`) segment sitting in the address bar after the
+redirect lands, which is undesirable for URLs meant to be shared or typed (StepOne's own Terms
+text points people at `stepone.morso.one/terms`). Each of `stepone/index.html`,
+`stepone/terms/index.html`, and `stepone/privacy/index.html` carries a small inline script, first
+thing in `<head>`, that runs `history.replaceState()` after load to strip a leading `/stepone/`
+from the visible path. It's cosmetic only — it fires after the page's relative assets have already
+resolved against the pre-redirect URL, so it can't break them the way a rewrite would. It checks
+`location.hostname.startsWith('stepone.')` and a `/stepone/`-prefixed path, so it's a no-op both in
+local dev (no `/stepone/` prefix there) and when the page is reached via the bare `/stepone/...`
+path on a host without subdomain routing (where showing that prefix is still correct).
+
 ## Architecture — StepOne (`stepone/`)
 
 Static hero, then four selling-point sections generated in `main.js` from `SECTIONS` and

@@ -2,6 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>
+/* Firebase Hosting can't route on the Host header, so landing here from the
+   stepone.<domain> subdomain always goes through a /stepone/ path server-side.
+   Once loaded, strip that prefix from the address bar — cosmetic only, doesn't
+   affect the relative asset paths already resolved against it. */
+(function () {
+  var p = location.pathname;
+  if (location.hostname.startsWith('stepone.') && p.startsWith('/stepone/')) {
+    history.replaceState(null, '', p.slice(8) + location.search + location.hash);
+  }
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>StepOne</title>
 <meta name="description" content="Build motivation by completing simple, achievable tasks.">
